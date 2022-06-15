@@ -1,3 +1,4 @@
 export const environment = {
-  production: true
+  production: true,
+  API: 'https://fakerapi.it/api/v1/persons'
 };
