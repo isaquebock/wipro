@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  API: 'https://fakerapi.it/api/v1/persons'
+  API: 'https://dummyjson.com/users'
 };
 
 /*

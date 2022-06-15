@@ -14,6 +14,11 @@ export class AgeChartComponent implements OnInit {
   public sub: Subscription = new Subscription()
   public ages: any;
 
+  private youngerThan20: number = 0;
+  private youngerThan40: number = 0;
+  private youngerThan60: number = 0;
+  private olderThan60: number = 0;
+
   constructor(private personsService: PersonsService, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
@@ -22,29 +27,39 @@ export class AgeChartComponent implements OnInit {
     this.sub = this.route.data.subscribe(
       res => this.ages = res['ages'],
     )
-    this.ages = this.ages.map((person: any) => person.birthday)
-    this.ages.forEach((bday: any) => {
-      let date = Date.parse(bday)
-      let currentYear = new Date().getFullYear();
-      let bdayYear = new Date(date).getFullYear()
-
-      dates.push(currentYear - bdayYear)
+    this.ages = this.ages.map((person: any) => person.age)
+    this.ages.forEach((bday: number) => {
+      if(bday < 20) {
+        this.youngerThan20 = this.youngerThan20 + 1;
+      } else if(bday < 40) {
+        this.youngerThan40 = this.youngerThan40 + 1;
+      } else if(bday < 60) {
+        this.youngerThan60 = this.youngerThan60 + 1;
+        console.log(bday, this.youngerThan60)
+      } else {
+        this.olderThan60 = this.olderThan60 + 1;
+      }
     })
 
-    const myChart = new Chart("myChart", {
-      type: 'line',
+    const myChart = new Chart("pieChart", {
+      type: 'pie',
       data: {
-          labels: dates,
+          labels: ['Mais novo que 20', 'Mais novo que 40', 'Mais novo que 60', 'Mais velho que 60'],
           datasets: [{
               label: 'Idade',
-              data: dates,
+              data: [this.youngerThan20, this.youngerThan40, this.youngerThan60, this.olderThan60],
               backgroundColor: [
                   'rgba(255, 99, 132, 0.2)',
-                  'rgba(54, 162, 235, 0.2)'
+                  'rgba(54, 162, 235, 0.2)',
+                  'rgb(60, 179, 113)',
+                  'rgb(238, 130, 238)'
+
               ],
               borderColor: [
                   'rgba(255, 99, 132, 1)',
-                  'rgba(54, 162, 235, 1)'
+                  'rgba(54, 162, 235, 1)',
+                  'rgb(60, 179, 113)',
+                  'rgb(238, 130, 238)'
               ],
               borderWidth: 1
           }]

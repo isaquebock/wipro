@@ -1,4 +1,5 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { PersonsService } from 'src/app/services/persons.service';
 
 @Component({
@@ -9,13 +10,16 @@ import { PersonsService } from 'src/app/services/persons.service';
 export class HomeComponent implements OnInit {
 
   public persons: any[] = []
-  @Output() personsCreated: EventEmitter<any> = new EventEmitter;
+  public dates: any[] = [];
+  public sub: Subscription = new Subscription()
 
   constructor(private personsService: PersonsService) { }
 
   ngOnInit(): void {
-    this.personsService.getPersons.subscribe((res: any) => this.persons = res)
-    this.personsCreated.emit('test')
+    this.sub = this.personsService.getPersons.subscribe(
+      (res: any) => {this.persons = res},
+      (error: any) => {console.log(error)},
+    )
   }
 
 }

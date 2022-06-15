@@ -7,12 +7,13 @@ import { environment } from 'src/environments/environment';
 export class PersonsService {
 
   private quantity: number = 20;
-  private readonly API_URL: string = `${environment.API}?_quantity=${this.quantity}`
+  private readonly API_URL: string = `${environment.API}`
+  //trocar api https://dummyjson.com/users
 
   constructor(private httpClient: HttpClient) {}
 
   get getPersons(): any {
-    return this.httpClient.get<any>(this.API_URL).pipe(map(res => res.data))
+    return this.httpClient.get<any>(this.API_URL).pipe(map(res => res.users))
   }
 
 }

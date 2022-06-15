@@ -7,6 +7,7 @@
         <th scope="col">Nome</th>
         <th scope="col">Sobrenome</th>
         <th scope="col">Idade</th>
+        <th scope="col">Data de Nascimento</th>
         <th scope="col">Genêro</th>
         <th scope="col">Email</th>
         <th scope="col">Telefone</th>
@@ -14,10 +15,11 @@
     </thead>
 
     <tbody>
-      <tr *ngFor="let person of persons" >
-        <td>{{ person.firstname }}</td>
-        <td>{{ person.lastname }}</td>
-        <td>{{ person.birthday }}</td>
+      <tr *ngFor="let person of persons">
+        <td>{{ person.firstName }}</td>
+        <td>{{ person.lastName }}</td>
+        <td>{{ person.age }}</td>
+        <td>{{ person.birthDate }}</td>
         <td>{{ person.gender }}</td>
         <td>{{ person.email }}</td>
         <td>{{ person.phone }}</td>
